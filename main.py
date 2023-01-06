@@ -6,7 +6,7 @@ from help_cog import help_cog
 from configparser import ConfigParser
 import os
 
-os.environ['Path'] = os.environ['Path'] + ';' + os.getcwd() + '/ffmpeg/bin'
+# os.environ['Path'] = os.environ['Path'] + ';' + os.getcwd() + '/ffmpeg/bin'
 
 # Read config file
 config = ConfigParser()
