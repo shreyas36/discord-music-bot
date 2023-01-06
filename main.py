@@ -4,6 +4,9 @@ from youtube_dl import YoutubeDL
 from music_cog import music_cog
 from help_cog import help_cog
 from configparser import ConfigParser
+import os
+
+os.environ['Path'] = os.environ['Path'] + ';' + os.getcwd() + '/ffmpeg/bin'
 
 # Read config file
 config = ConfigParser()
