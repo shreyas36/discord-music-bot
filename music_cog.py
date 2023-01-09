@@ -12,7 +12,7 @@ class music_cog(commands.Cog):
         # all the music related stuff
         self.is_playing = False
         self.is_paused = False
-
+        self.current = None
         # 2d array containing [song, channel]
         self.music_queue = []
         self.YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
@@ -45,7 +45,7 @@ class music_cog(commands.Cog):
             m_url = self.music_queue[0][0]['source']
 
             # remove the first element as you are currently playing it
-            self.music_queue.pop(0)
+            self.current = self.music_queue.pop(0)
 
             self.vc.play(discord.FFmpegPCMAudio(
                 m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
@@ -71,7 +71,7 @@ class music_cog(commands.Cog):
                 await self.vc.move_to(self.music_queue[0][1])
 
             # remove the first element as you are currently playing it
-            self.music_queue.pop(0)
+            self.current = self.music_queue.pop(0)
 
             self.vc.play(discord.FFmpegPCMAudio(
                 m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
@@ -151,3 +151,10 @@ class music_cog(commands.Cog):
         self.is_playing = False
         self.is_paused = False
         await self.vc.disconnect()
+
+    @commands.command(name="nowplaying", aliases=["np"], help="Displays the current song being played")
+    async def now_playing(self, ctx):
+        if self.is_playing and self.current:
+            await ctx.send("Now playing: " + self.current[0]['title'])
+        else:
+            await ctx.send("No song is currently playing")

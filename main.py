@@ -12,10 +12,12 @@ import os
 config = ConfigParser()
 config.read('token.ini')
 token = config['DEFAULT']['token']
+# token = config['DEFAULT']['token2']
 
 # intents = discord.Intents.all()
 # intents.typing = False
 # intents.presences = False
+# bot = commands.Bot(command_prefix='!')
 bot = commands.Bot(command_prefix='-')
 bot.remove_command('help')
 
